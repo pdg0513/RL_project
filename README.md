@@ -44,30 +44,9 @@ MyoSuite의 `motorFingerPoseFixed-v0` 환경에서 **continuous control RL (PPO)
 
 ---
 
-## 3. Repository Structure (예시)
+## 3. Environment & MDP Design
 
-```text
-RL_project/
-├─ README.md
-├─ requirements.txt
-├─ src/
-│   └─ motorfinger_ppo_bc.py              # 메인: env + PPO + BC-warm + eval
-├─ data/
-│   └─ myohand_joint_angles_23dof_stable_signed.npy  # 사람 손 joint angle 시퀀스
-└─ results/
-    └─ figures/
-        ├─ ppo_learning_curves_return.png
-        ├─ ppo_learning_curves_trackerr.png
-        └─ ppo_final_tracking_error_bar.png
-```
-
-> 실제 폴더 구조가 다르면 README만 살짝 수정해서 쓰면 됩니다.
-
----
-
-## 4. Environment & MDP Design
-
-### 4.1 Observation (State)
+### 3.1 Observation (State)
 
 각 시점의 상태 \(s_t\) 는 7차원 벡터:
 
@@ -77,18 +56,14 @@ RL_project/
   - 위에서 추출한 사람 데이터의 같은 timestep 값
 - 정규화된 시간 \(t/T\) (스칼라 1차원)
 
-즉,
 
-\[
-s_t = [q_t, q^*_t, t/T] \in \mathbb{R}^7
-\]
 
-### 4.2 Action
+### 3.2 Action
 
 - MyoSuite `motorFingerPoseFixed-v0` 의 `action_space` 를 그대로 사용
 - 연속값 벡터 (각 관절에 대한 torque / control input)
 
-### 4.3 Episode
+### 3.3 Episode
 
 - 사용 구간: frame **800 ~ 950**
 - 코드에서 자동으로
